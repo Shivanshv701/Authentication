@@ -1,0 +1,241 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Authentication API",
+        "description": "Authentication API developed in ExpressJS",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "security": {
+        "app_id": []
+    },
+    "host": "localhost:8000",
+    "basePath": "/api",
+    "securityDefinitions": {
+        "AuthToken": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header",
+            "description": "The token for authentication"
+        }
+    },
+
+    "paths": {
+        "/register": {
+            "post": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Register a User"
+                ],
+                "description": "Post users to database",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User should be created",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/login": {
+            "post": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Login User"
+                ],
+                "description": "Login user to database",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Log in given user",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/update": {
+            "put": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Update User Profile"
+                ],
+                "description": "Update userprofile to database",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User should be logged in.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "AuthToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/forget": {
+            "post": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Forgot Password"
+                ],
+                "description": "Forgot Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "email",
+                        "description": "User should be have account.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/updatepassword": {
+            "post": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Reset Password"
+                ],
+                "description": "Reset Password of User",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "User should have account.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "AuthToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/user/{email}": {
+            "get": {
+                "x-swagger-router-controller": "UserControllers",
+                "tags": [
+                    "Get User By Email"
+                ],
+                "description": "Returns user based on Email",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "required": true,
+                        "description": "Email of user we want to find",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "AuthToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserModel"
+                        }
+                    }
+                },
+                "securitySchemes": {
+                    "app_id": {
+                        "type": "apiKey",
+                        "description": "API key to authorize requests.",
+                        "name": "appid",
+                        "in": "query"
+                    }
+                }
+            }
+        }
+    },
+
+    "definitions": {
+        "UserModel": {
+            "required": [
+                "_id",
+                "firstname",
+                "lastname",
+                "email",
+                "password",
+                "resetlink"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "resetlink": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
