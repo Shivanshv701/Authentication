@@ -9,9 +9,9 @@ const {PassportAuth} = require('./auth/UserAuth')
 const cors = require('cors');
 const UserModel = require('./models/UserModel');
 const app = express();
-// const DB_URI= 'mongodb+srv://shivanshv701:xX6g5n4vX6MKjsQk@cluster0.wxz5nuz.mongodb.net/Authdb?retryWrites=true&w=majority';
+const DB_URI= 'mongodb+srv://shivanshv701:xX6g5n4vX6MKjsQk@cluster0.wxz5nuz.mongodb.net/Authdb?retryWrites=true&w=majority';
 // const DB_URI = 'mongodb://localhost:27017/AuthDB'
-const DB_URI = process.env.MONGODB_SERVER
+// const DB_URI = process.env.MONGODB_SERVER
 
 
 app.use(cors());
