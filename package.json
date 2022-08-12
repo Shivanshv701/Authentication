@@ -4,11 +4,10 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "ssh://git@gitlab-wipro.stackroute.in:2225/shivansh.7199/backend.git"
+    "type": "git"
   },
   "author": "Shivansh",
   "license": "ISC",
